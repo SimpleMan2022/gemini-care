@@ -38,6 +38,15 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            # Cek direktori sebelum berpindah
+            echo "Current Directory:"
+            pwd
+            echo "Contents of the directory:"
+            ls
+            
+            cd ecs-user/geminicare || { echo "Directory not found"; exit 1; }
+            ls # Memastikan bahwa kita berada di direktori yang benar dan memeriksa berkas yang ada
+
             docker compose -f docker-compose.yml pull
             docker compose -f docker-compose.yml down
             docker compose -f docker-compose.yml up -d
