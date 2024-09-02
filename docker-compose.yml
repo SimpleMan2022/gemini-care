@@ -1,0 +1,27 @@
+services:
+  geminicare:
+    build: .
+    ports:
+      - "1323:1323"
+    env_file:
+      - ".env"
+    depends_on:
+      - db
+    restart: on-failure
+  db:
+    image: postgres:14.5-alpine
+    environment:
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+        - geminicare-network
+
+volumes:
+    postgres_data:
+
+networks:
+  geminicare-network:
+    driver: bridge
