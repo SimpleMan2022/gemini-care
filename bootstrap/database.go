@@ -26,6 +26,7 @@ func InitializeDatabase(env *ENV) {
 		panic(err)
 	}
 	DB = db
+	fmt.Println(DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_SSL_MODE, DB_TIME_ZONE)
 	MigrateDatabase(db)
 }
 
