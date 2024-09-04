@@ -40,5 +40,5 @@ jobs:
             pwd
             docker stop geminicare || true && docker rm geminicare || true
             docker pull aditnugroho/geminicare:latest
-            docker run -d --name geminicare -p 80:1323 aditnugroho/geminicare:latest
+            docker run -d --name geminicare -p 1323:1323 aditnugroho/geminicare:latest
             
