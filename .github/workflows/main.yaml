@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-image:
-    name: Build and Deploy
+    name: Build Docker Image
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
@@ -28,6 +28,7 @@ jobs:
   deploy-to-server:
     name: Deploy to Server
     runs-on: ubuntu-22.04
+    needs: build-image
     steps:
       - name: Configure SSH
         uses: appleboy/ssh-action@master
