@@ -19,6 +19,7 @@ func InitializeDatabase(env *ENV) {
 		DB_SSL_MODE  = env.DB_SSL_MODE
 		DB_TIME_ZONE = env.DB_TIME_ZONE
 	)
+	fmt.Println(DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_SSL_MODE, DB_TIME_ZONE)
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s", DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT, DB_SSL_MODE, DB_TIME_ZONE)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -26,7 +27,6 @@ func InitializeDatabase(env *ENV) {
 		panic(err)
 	}
 	DB = db
-	fmt.Println(DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_SSL_MODE, DB_TIME_ZONE)
 	MigrateDatabase(db)
 }
 
