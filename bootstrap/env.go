@@ -1,7 +1,9 @@
 package bootstrap
 
 import (
+	"fmt"
 	"github.com/joho/godotenv"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -23,6 +25,18 @@ type ENV struct {
 func NewEnv() *ENV {
 	envPath := filepath.Join("..", "..", ".env")
 	if err := godotenv.Load(envPath); err != nil {
+		log.Println("Error loading .env file:", err)
+		fmt.Println("Listing files in the current directory:")
+
+		files, err := os.ReadDir(".")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, file := range files {
+			fmt.Println(file.Name())
+		}
+
 		panic(err)
 	}
 
