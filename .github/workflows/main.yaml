@@ -38,30 +38,28 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ecs-user/geminicare
-            
-            touch .env && 
-            echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env &&
-            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env &&
-            echo "DB_USER=${{ secrets.DB_USER }}" >> .env &&
-            echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env &&
-            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env &&
-            echo "DB_SSL_MODE=${{ secrets.DB_SSL_MODE }}" >> .env &&
-            echo "DB_TIME_ZONE=${{ secrets.DB_TIME_ZONE }}" >> .env &&
-            echo "PORT=${{ secrets.PORT }}" >> .env &&
-            echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env &&
-            echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env &&
-            echo "GOOGLE_REDIRECT_URL=${{ secrets.GOOGLE_REDIRECT_URL }}" >> .env &&
-            echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> .env &&
-            echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env &&
-            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env &&
-            
+
+            # Create and write to .env file
+            touch .env
+            echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+            echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+            echo "DB_SSL_MODE=${{ secrets.DB_SSL_MODE }}" >> .env
+            echo "DB_TIME_ZONE=${{ secrets.DB_TIME_ZONE }}" >> .env
+            echo "PORT=${{ secrets.PORT }}" >> .env
+            echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
+            echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+            echo "GOOGLE_REDIRECT_URL=${{ secrets.GOOGLE_REDIRECT_URL }}" >> .env
+            echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> .env
+            echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+
+            # Restart services
             docker compose pull
             docker compose down
             docker compose up -d
-            docker cp .env geminicare:/app
-            docker restart geminicare 
-            docker image prune -f
-            docker volume prune -f
-            docker network prune -f
-            docker container prune -f
+
+            # Clean up
             docker system prune -f
