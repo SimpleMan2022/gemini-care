@@ -39,10 +39,6 @@ jobs:
           script: |
             cd /home/ecs-user/geminicare
             
-            docker compose pull
-            
-            docker compose down
-            docker compose up -d
             touch .env && 
             echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env &&
             echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env &&
@@ -58,5 +54,10 @@ jobs:
             echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> .env &&
             echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env &&
             echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env &&
-            docker cp .env geminicare:/
+            
+            docker compose pull
+            docker compose down
+            docker compose up -d
+            docker image prune -f
+            
             
