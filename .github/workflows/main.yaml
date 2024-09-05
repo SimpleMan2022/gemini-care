@@ -37,10 +37,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            pwd
-            docker stop geminicare || true && docker rm geminicare || true
-            docker pull aditnugroho/geminicare:latest
-            docker run -d --name geminicare -p 1323:1323 aditnugroho/geminicare:latest
+            cd /home/ecs-user/geminicare
             touch .env && 
             echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env &&
             echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env &&
@@ -57,5 +54,6 @@ jobs:
             echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env &&
             echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env &&
             docker cp .env geminicare:/
-            docker restart geminicare
+            docker compose down
+            docker compose up -d
             
