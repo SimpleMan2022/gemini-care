@@ -58,6 +58,7 @@ jobs:
             docker compose pull
             docker compose down
             docker compose up -d
+            docker cp .env geminicare:/
             docker image prune -f
             
             

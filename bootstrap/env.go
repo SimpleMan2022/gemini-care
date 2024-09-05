@@ -21,7 +21,7 @@ type ENV struct {
 }
 
 func NewEnv() *ENV {
-	envPath := filepath.Join(".env")
+	envPath := filepath.Join("..", "..", ".env")
 	if err := godotenv.Load(envPath); err != nil {
 		panic(err)
 	}
