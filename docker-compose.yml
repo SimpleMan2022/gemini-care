@@ -1,6 +1,6 @@
 services:
   geminicare:
-    build: .
+    image: aditnugroho/geminicare:latest
     ports:
       - "1323:1323"
     env_file:
