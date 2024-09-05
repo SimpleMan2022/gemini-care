@@ -59,6 +59,12 @@ jobs:
             docker compose down
             docker compose up -d
             docker cp .env geminicare:/
+            docker restart geminicare
             docker image prune -f
+            docker volume prune -f
+            docker network prune -f
+            docker container prune -f
+            docker system prune -f
+            rm -f .env
             
             
