@@ -23,12 +23,12 @@ type ENV struct {
 }
 
 func NewEnv() *ENV {
-	envPath := filepath.Join("..", "..", ".env")
+	envPath := filepath.Join("..", "..", "..", ".dockerenv")
 	if err := godotenv.Load(envPath); err != nil {
 		log.Println("Error loading .env file:", err)
 		fmt.Println("Listing files in the current directory:")
 
-		files, err := os.ReadDir(".")
+		files, err := os.ReadDir("./../")
 		if err != nil {
 			log.Fatal(err)
 		}
