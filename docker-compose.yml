@@ -5,11 +5,13 @@ services:
       - "1323:1323"
     env_file:
       - ".env"
+    networks:
+        - geminicare-network
     depends_on:
       - db
     restart: on-failure
   db:
-    image: postgres:14.5-alpine
+    image: postgres:14.5
     environment:
         POSTGRES_USER: ${DB_USER}
         POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -18,6 +20,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
         - geminicare-network
+    ports:
+      - "5432:5432"
 
 volumes:
     postgres_data:
